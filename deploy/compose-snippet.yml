@@ -1,0 +1,24 @@
+# Example service entry for a docker-compose.yml (here: a Komodo-managed stack).
+# ${IFIT_*} values come from the stack environment / .env file.
+
+  ifit-garmin-sync:
+    build: /mnt/docker/containers/ifit-garmin-sync/app
+    image: ifit-garmin-sync:local
+    pull_policy: build
+    container_name: ifit-garmin-sync
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ}
+      SYNC_INTERVAL: 900
+      STRAVA_CLIENT_ID: ${IFIT_STRAVA_CLIENT_ID}
+      STRAVA_CLIENT_SECRET: ${IFIT_STRAVA_CLIENT_SECRET}
+      STRAVA_MATCH: ifit
+      STRAVA_LOOKBACK_DAYS: 3
+      GARMIN_EMAIL: ${IFIT_GARMIN_EMAIL}
+      GARMIN_PASSWORD: ${IFIT_GARMIN_PASSWORD}
+      NTFY_URL: http://ntfy/fitness
+      NTFY_TOKEN: ${IFIT_NTFY_TOKEN}
+      GATUS_PUSH_URL: http://gatus:8080/api/v1/endpoints/apps_ifit-garmin-sync/external
+      GATUS_PUSH_TOKEN: ${IFIT_GATUS_TOKEN}
+    volumes:
+      - /mnt/docker/containers/ifit-garmin-sync/data:/data

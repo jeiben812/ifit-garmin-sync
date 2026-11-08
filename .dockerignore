@@ -1,0 +1,7 @@
+.venv/
+data/
+inbox/
+.env
+.env.example
+__pycache__/
+*.fit
